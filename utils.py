@@ -33,7 +33,7 @@ def readPoints(fname:str) -> (object):
     ptsCor = np.array((ptsx, ptsy))
     return ptsCor    
 
-def readmap() -> (object, object):
+def readmap() -> object:
     filename = "../data/xyz_1m.txt"
     maptxt = open(filename, mode='r')
     ncols = int(splitNum(maptxt.readline()))
@@ -163,6 +163,25 @@ def outpathIMG(grid: object, planPath:list, xpts:list, ypts:list, outfname:str):
         SetPixel3band(img_arr, xpts[pts], ypts[pts], 0, 0, 255)
     
     cv.imwrite("../output/map/"+str(outfname)+".png", img_arr)
+
+def drawPtsOnGrid(grid:object, xpts:list, ypts:list, fname:str):
+    (r_, c_) = grid.shape
+    img_arr = np.zeros((r_, c_, 3), dtype=np.int16)
+    for r in range(r_):
+        for c in range(c_):
+            if(grid[r][c] == '.'):
+                img_arr[r][c][0] = 220
+                img_arr[r][c][1] = 220
+                img_arr[r][c][2] = 220
+            elif(grid[r][c] == '%'):
+                SetPixel3band(img_arr, r, c, 0, 0, 0)
+    for pts in range(len(xpts)):
+        SetPixel3band(img_arr, xpts[pts], ypts[pts], 0, 0, 255)
+    
+    cv.imwrite("../output/map/"+str(fname)+".png", img_arr)
+
+
+
 def SetPixel3band(img_arr:object, r:int, c:int, B:int, G:int, R:int):
     try:
         img_arr[r][c][0] = B

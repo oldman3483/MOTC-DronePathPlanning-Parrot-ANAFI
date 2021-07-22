@@ -109,7 +109,7 @@ def next_move(pacman, food, grid, pathname) -> (int, list):
     xpath = []
     ypath = []
     pathNum = len(path) - 1
-    print (len(path) - 1)
+    #print (len(path) - 1)
     for node in path:
         x, y = node.point
         xpath.append(x)
