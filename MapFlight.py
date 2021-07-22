@@ -95,7 +95,7 @@ def mapSurveyFlight(fpts_map:str, fpts_start:str):
     grid4demo = mapGrid4demo()
     outpathIMG(grid,respath, xPts, yPts, "MapSurvey_5buff_100m_ori0722")
     outpathIMG(grid4demo,respath, xPts, yPts, "MapSurvey_5buff_100m_0722")
-    print("test git push")
+    
         
 
 def findClosePt(xpts:list, ypts:list, x:int, y:int):
