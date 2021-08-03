@@ -130,7 +130,7 @@ def mapGrid4demo() -> (object):
 
 
 def IsObstalce(height:float, H_flight: float, default:bool) -> (bool):
-	if ((height+H_flight) > 120) and default:
+	if ((height+H_flight) > 85) and default:
 		return True
 	return False
 

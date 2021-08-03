@@ -106,8 +106,8 @@ def singlePointFlight(fname_pts:str, fname_start:str):
     respath.append(xpts_planPath)
     respath.append(ypts_planPath)
     grid4demo = mapGrid4demo()
-    outpathIMG(grid,respath, xPts, yPts, "singlePts_5buff_100m_ori0711")
-    outpathIMG(grid4demo,respath, xPts, yPts, "singlePts_5buff_100m_0711")
+    outpathIMG(grid,respath, xPts, yPts, "singlePts_5buff_75m_ori")
+    outpathIMG(grid4demo,respath, xPts, yPts, "singlePts_5buff_75m")
     
 
 

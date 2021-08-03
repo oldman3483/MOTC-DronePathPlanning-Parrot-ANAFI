@@ -19,7 +19,8 @@ def mapSurveyFlight(fpts_map:str, fpts_start:str):
     maxYpts = max(inPts[1])
     minXpts = min(inPts[0])
     maxXpts = max(inPts[0])
-    xstep = 20
+    xstep = 30
+    
     ystep = 10
     i_minY = findIndex(inPts[1], minYpts)
     if i_minY == -1:
@@ -93,8 +94,8 @@ def mapSurveyFlight(fpts_map:str, fpts_start:str):
     respath.append(xpts_planPath)
     respath.append(ypts_planPath)
     grid4demo = mapGrid4demo()
-    outpathIMG(grid,respath, xPts, yPts, "MapSurvey_5buff_100m_ori0722")
-    outpathIMG(grid4demo,respath, xPts, yPts, "MapSurvey_5buff_100m_0722")
+    outpathIMG(grid,respath, xPts, yPts, "MapSurvey_5buff_85m_ori")
+    outpathIMG(grid4demo,respath, xPts, yPts, "MapSurvey_5buff_85m")
 
         
 
