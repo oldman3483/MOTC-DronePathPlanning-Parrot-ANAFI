@@ -118,16 +118,17 @@ def next_move(pacman, food, grid, pathname) -> (int, list):
     planPath.append(xpath)
     planPath.append(ypath)
     
-    (mapinfo, map_arr) = readmap()
+	
+    #(mapinfo, map_arr) = readmap()
     
-    xCorner = mapinfo[2]
-    yCorner = mapinfo[3]
+    #xCorner = mapinfo[2]
+    #Corner = mapinfo[3]
 
 
-    path_txt = open("../output/planningpath/"+pathname, 'w')
-    path_txt.write(str(xpath[:]+xCorner))
-    path_txt.write('\n')
-    path_txt.write(str(ypath[:]+yCorner))
+    #path_txt = open("../output/planningpath/"+pathname, 'w')
+    #path_txt.write(str(xpath[:]+xCorner))
+    #path_txt.write('\n')
+    #path_txt.write(str(ypath[:]+yCorner))
     return (pathNum, planPath)
 
 def main():

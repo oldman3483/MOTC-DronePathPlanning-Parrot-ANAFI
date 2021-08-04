@@ -6,8 +6,8 @@ Created on Sun July 9 11:48:45 2021
 """
 
 from MultiPtsFlight import multiPointFlight
-from SinglePtFlight import singlePointFlight
-from  MapFlight import  mapSurveyFlight
+from SinglePtFlight_mod import singlePointFlight
+from  MapFlight_mod import  mapSurveyFlight
 
 
 
