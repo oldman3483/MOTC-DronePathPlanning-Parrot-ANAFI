@@ -130,7 +130,7 @@ def mapGrid4demo() -> (object):
 
 
 def IsObstalce(height:float, H_flight: float, default:bool) -> (bool):
-	if ((height+H_flight) > 85) and default:
+	if ((height+H_flight) > 75) and default:
 		return True
 	return False
 
@@ -206,9 +206,40 @@ def setObstacle(img_arr:object, r:int, c:int, bufsize:int):
                 
                 img_arr[r][c+j]='%'
                 img_arr[r][c-j]='%'
-
-                
     
     except IndexError:
         print("error")
         pass
+def writePath(xpath:list, ypath:list, fname:str, input_name:str):
+# use the global varible xCorner and yCorner instead the read the input_name file
+
+
+    path_txt = open("../output/planningpath/"+fname, 'w')
+    path_txt.write(str(xpath[:]+xCorner))
+    path_txt.write('\n')
+    path_txt.write(str(ypath[:]+yCorner))
+
+def checkPts(xpath:list, ypath:list, Flight_height) -> list:
+    # check whether each point is over the obstacle height setting 
+    # return the indexes list which are over the height
+    (mapinfo, map_arr) = readmap()
+
+    res = []
+    warning_xpts = []
+    warning_ypts = []
+    NoWarn = True
+    for i in range(len(xpath)):
+        if IsObstalce(map_arr[xpath[i]][ypath[i]], Flight_height, True):
+            warning_xpts.append(xpath[i])
+            warning_ypts.append(ypath[i])
+            NoWarn = False
+
+    if NoWarn: 
+        print("SAFE FLIGHT")
+        return 0
+    else:
+        res.append(warning_xpts)
+        res.append(warning_ypts)
+        print("WARNING!!!!! NEED TO INCREASE THE FLIGHT HEIGHT")
+
+    return res

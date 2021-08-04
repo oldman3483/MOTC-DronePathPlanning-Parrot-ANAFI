@@ -5,7 +5,7 @@ Created on Sun July 9 12:01:31 2021
 @author: ZXLi
 """
 
-from utils import readPoints, mapGrid, mapGrid4demo, outpathIMG, IsObstalce, readmap, writePath
+from utils import readPoints, mapGrid, mapGrid4demo, outpathIMG, IsObstalce, readmap, writePath, checkPts
 from astar_forUse import next_move
 from math  import sqrt, sin, cos
 import time
@@ -135,7 +135,7 @@ def singlePointFlight(fname_pts:str, fname_start:str):
     # output a txt file record the basic imfomation: warning msg, 
     # image TWD97 location base point
 
-
+'''
 def checkPts(xpath:list, ypath:list, Flight_height) -> list:
     # check whether each point is over the obstacle height setting 
     # return the indexes list which are over the height
@@ -160,6 +160,6 @@ def checkPts(xpath:list, ypath:list, Flight_height) -> list:
         print("WARNING!!!!! NEED TO INCREASE THE FLIGHT HEIGHT")
 
     return res
-
+'''
 
 
