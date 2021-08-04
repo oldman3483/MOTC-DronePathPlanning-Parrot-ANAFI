@@ -146,11 +146,10 @@ def checkPts(xpath:list, ypath:list, Flight_height) -> list:
     warning_ypts = []
     NoWarn = True
     for i in range(len(xpath)):
-        for j in range(len(ypath)):
-            if IsObstalce(map_arr[xpath[i]][ypath[j]], Flight_height, True):
-                warning_xpts.append(xpath[i])
-                warning_ypts.append(ypath[j])
-                NoWarn = False
+        if IsObstalce(map_arr[xpath[i]][ypath[i]], Flight_height, True):
+            warning_xpts.append(xpath[i])
+            warning_ypts.append(ypath[i])
+            NoWarn = False
 
     if NoWarn: 
         print("SAFE FLIGHT")
