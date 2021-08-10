@@ -131,8 +131,8 @@ def mapSurveyFlight(fpts_map:str, fpts_start:str):
 
 
     grid4demo = mapGrid4demo()
-    outpathIMG(grid,respath, xPts, yPts, "MapSurvey_5buff_75m_ori")
-    outpathIMG(grid4demo,respath, xPts, yPts, "MapSurvey_5buff_75m")
+    outpathIMG(grid,respath, xPts, yPts, "Harbor_img_ori")
+    outpathIMG(grid4demo,respath, xPts, yPts, "Harbor_img")
     writePath(xpts_planPath, ypts_planPath, "MapSurvey_5buff_75m.txt", 'noUseNow')
     warning_index = checkPts(xpts_planPath, ypts_planPath, 30)
     print("WARNING-----------------------"+str(warning_index)+"--------------------------------")

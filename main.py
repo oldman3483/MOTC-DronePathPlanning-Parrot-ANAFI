@@ -17,7 +17,7 @@ def main():
     #multiPointFlight(fname_pts, fname_start)
     fpts_single = '../data/SinglePoints_default.txt'
     #singlePointFlight(fpts_single, fname_start)
-    fpts_map = '../data/mapFlightPts_default.txt'
+    fpts_map = '../data/mapFlightPts_test.txt'#mapFlightPts_default.txt'
     
     mapSurveyFlight(fpts_map, fname_start)
 

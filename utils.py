@@ -3,6 +3,19 @@ import numpy as np
 import cv2 as cv
 import math
 
+def readCmd(cmdFileName):
+    cmd = open(cmdFileName, 'r')
+    
+    for line in cmd.readlines():
+        r_list = line.split(',')
+        j = 0
+        print("line== "+str(line))
+        print("r_list== "+str(r_list))
+    
+
+    # cmd file write format [IsRelativeHeight, FlightHeight, ]
+    return r_list
+
 
 def readPoints(fname:str) -> (object):
     fpts = open(fname, 'r')
@@ -21,8 +34,8 @@ def readPoints(fname:str) -> (object):
     for line in fpts.readlines():
         r_list = line.split(',')
         j = 0
-        print("line"+str(line))
-        print("r_list"+str(r_list))
+        #print("line"+str(line))
+        #print("r_list"+str(r_list))
         
         #for conp in r_list:
         if(r_list[0]!='\n'):
@@ -34,7 +47,7 @@ def readPoints(fname:str) -> (object):
     return ptsCor    
 
 def readmap() -> object:
-    filename = "../data/xyz_1m.txt"
+    filename = "../data/1m_harbor.txt"#xyz_1m.txt"
     maptxt = open(filename, mode='r')
     ncols = int(splitNum(maptxt.readline()))
     nrows = int(splitNum(maptxt.readline()))

@@ -5,7 +5,7 @@ Created on Wed May 12 16:57:07 2021
 @author: GPS
 """
 import cv2
-data = "../data/5buff_75mmap_ori.png"
+data = "../data/Harbor_all_ori.png"
 img = cv2.imread(data)
 
 

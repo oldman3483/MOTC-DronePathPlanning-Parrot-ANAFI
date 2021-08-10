@@ -12,7 +12,7 @@ import time
 
 
 
-def singlePointFlight(fname_pts:str, fname_start:str):
+def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
     start_time = time.time()
     inPts = readPoints(fname_pts)
     startPts = readPoints(fname_start)

@@ -34,12 +34,14 @@ def mapSurveyFlight(fpts_map:str, fpts_start:str):
     xin.append(inPts[0][i_minY])
     yin.append(inPts[1][i_minY])
     while (yin[-1] < maxYpts):
+        '''
         if yin[-1] < maxYpts and (yin[-1]+ystep) < maxYpts:
             x_coor = xin[-1] 
             y_coor = yin[-1]+ystep
             xin.append(x_coor)
             yin.append(y_coor)
         else: break
+        '''
         while  (xin[-1] < maxXpts and (xin[-1]+xstep) < maxXpts):
             x_coor = xin[-1] + xstep
             y_coor = yin[-1]
@@ -94,8 +96,8 @@ def mapSurveyFlight(fpts_map:str, fpts_start:str):
     respath.append(xpts_planPath)
     respath.append(ypts_planPath)
     grid4demo = mapGrid4demo()
-    outpathIMG(grid,respath, xPts, yPts, "MapSurvey_5buff_85m_ori")
-    outpathIMG(grid4demo,respath, xPts, yPts, "MapSurvey_5buff_85m")
+    outpathIMG(grid,respath, xPts, yPts, "MapSurvey_5buff_85m_test2_ori")
+    outpathIMG(grid4demo,respath, xPts, yPts, "MapSurvey_5buff_test2_85m")
 
         
 
