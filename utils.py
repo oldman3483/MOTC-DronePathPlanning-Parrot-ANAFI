@@ -3,6 +3,21 @@ import numpy as np
 import cv2 as cv
 import math
 
+def writeMapInfo(arr_info, InfoTxtPath):
+    f = open(InfoTxtPath, 'w')
+    for sub in arr_info:
+        f.write(sub)
+        f.write(',')
+    f.close()
+
+
+
+def readMap_png(mapname, MapInfoFile):
+    mapInfo = open(MapInfoFile, 'r', encoding="utf-8")
+    map_arr = cv.imread(mapname)
+
+
+
 def readCmd(cmdFileName):
     cmd = open(cmdFileName, 'r')
     
