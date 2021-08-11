@@ -127,8 +127,8 @@ def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
     print("-------------------------------------------")
 
     grid4demo = mapGrid4demo()
-    outpathIMG(grid,respath, xPts, yPts, "singlePts_5buff_75m_ang2_ori")
-    outpathIMG(grid4demo,respath, xPts, yPts, "singlePts_5buff_ang2_75m")
+    outpathIMG(grid,respath, xPts, yPts, "singlePts_5buff_75m_ang2_ori_harbor")
+    outpathIMG(grid4demo,respath, xPts, yPts, "singlePts_5buff_ang2_75m_harbor")
     writePath(xpts_planPath, ypts_planPath, "singlePts_5buff_75m_ang2.txt", 'noUseNow')
     warning_index = checkPts(xpts_planPath, ypts_planPath, 30)
     print("WARNING-----------------------"+str(warning_index)+"--------------------------------")

@@ -74,7 +74,10 @@ def readmap() -> object:
     
     mapINFO = np.array([nrows, ncols, xCorner, yCorner, noData])
     writeMapInfo(mapINFO, '../data/mapInfo.txt')
+    fname = "../data/harbor_dsm.png"
+    map_arr = cv.imread(fname, 0)
     
+    """
     map_arr = np.zeros((nrows, ncols), dtype=np.float32)
     
     i = 0
@@ -89,7 +92,7 @@ def readmap() -> object:
         
         #print(map_arr[i][100:200])
         i+=1
-        
+    """    
     return (mapINFO, map_arr)
 
 
@@ -117,7 +120,8 @@ def mapGrid() -> (object):
 # use list is better choice or check the dtype of the np.string_
     for r in range(nrows):
         for c in range(ncols):
-            if int(map_arr[r][c]) == noData:
+            #print("r== "+str(r)+"c== "+str(c))
+            if int(map_arr[r][c]) == 0:
                 out_map[r][c] = '.'
                 #continue
             elif IsObstalce(map_arr[r][c], H_flight, True):
@@ -132,8 +136,8 @@ def mapGrid4demo() -> (object):
     H_flight = 30 #set default 30m 
 
 
-    nrows = int(mapinfo[0])
-    ncols = int(mapinfo[1])
+    nrows = int(map_arr.shape[0])
+    ncols = int(map_arr.shape[1])
     #xCorner = mapinfo[2]
     #yCorner = mapinfo[3]
     noData = mapinfo[-1]
@@ -142,6 +146,7 @@ def mapGrid4demo() -> (object):
 
 
 # use list is better choice or check the dtype of the np.string_
+    i = 0
     for r in range(nrows):
         for c in range(ncols):
             if int(map_arr[r][c]) == noData:
@@ -150,9 +155,10 @@ def mapGrid4demo() -> (object):
                 
             elif IsObstalce(map_arr[r][c], H_flight, True):
                 out_map[r][c] = '%'
+                i+=1
             else:
                 out_map[r][c] = '.'
-
+    print(str(i)+" OBS NUM")
     return out_map
 
 
@@ -160,7 +166,7 @@ def mapGrid4demo() -> (object):
 
 
 def IsObstalce(height:float, H_flight: float, default:bool) -> (bool):
-	if ((height+H_flight) > 75) and default:
+	if ((height+H_flight) > 35) and default:
 		return True
 	return False
 

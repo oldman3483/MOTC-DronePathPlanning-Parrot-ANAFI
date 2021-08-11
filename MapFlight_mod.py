@@ -4,7 +4,7 @@ Created on Sun July 18 16:39:07 2021
 
 @author: ZXLi
 """
-from utils import drawPtsOnGrid, readPoints, mapGrid, mapGrid4demo, outpathIMG, writePath, checkPts
+from utils import drawPtsOnGrid, readPoints, mapGrid, mapGrid4demo, outpathIMG, writePath, checkPts, readCmd
 from astar_forUse import next_move
 import numpy as np
 from math  import sqrt
@@ -12,7 +12,12 @@ import time
 
 def mapSurveyFlight(fpts_map:str, fpts_start:str):
     start_time = time.time()
+    mapinfo = readCmd("../data/mapInfo.txt")
     startPts = readPoints(fpts_start)
+    
+    #if (startPts[0]-mapinfo[2] <0) or (startPts[1]-mapinfo[3] <0):
+    #    print("---------warnning------------Start Point is out of bound !!----------")
+    #    return 0
     inPts = readPoints(fpts_map)
     intpts_r = inPts[0].shape[0]
     minYpts = min(inPts[1])
