@@ -6,7 +6,7 @@ import math
 def writeMapInfo(arr_info, InfoTxtPath):
     f = open(InfoTxtPath, 'w')
     for sub in arr_info:
-        f.write(sub)
+        f.write(str(sub))
         f.write(',')
     f.close()
 
@@ -62,7 +62,8 @@ def readPoints(fname:str) -> (object):
     return ptsCor    
 
 def readmap() -> object:
-    filename = "../data/1m_harbor.txt"#xyz_1m.txt"
+    #filename = "../data/1m_harbor.txt"#xyz_1m.txt"
+    filename = "../data/xyz_1m.txt"
     maptxt = open(filename, mode='r')
     ncols = int(splitNum(maptxt.readline()))
     nrows = int(splitNum(maptxt.readline()))
@@ -72,6 +73,7 @@ def readmap() -> object:
     noData = int(splitNum(maptxt.readline()))
     
     mapINFO = np.array([nrows, ncols, xCorner, yCorner, noData])
+    writeMapInfo(mapINFO, '../data/mapInfo.txt')
     
     map_arr = np.zeros((nrows, ncols), dtype=np.float32)
     

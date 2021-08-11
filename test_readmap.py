@@ -1,8 +1,8 @@
 import cv2 as cv
 import time
+from utils import readmap
 
-
-def readmap():
+def readmap_2():
     fname = ".txt";
     with open(fname, 'r', encoding='utf-8') as f:
         for chunk in iter(lambda: f.read(1024), ''):
@@ -23,7 +23,8 @@ def readmap_pic():
 
 
 def main():
-    readmap_pic()
+    #readmap_pic()
+    #readmap()
 
 if __name__ ==  '__main__':
     main() 
