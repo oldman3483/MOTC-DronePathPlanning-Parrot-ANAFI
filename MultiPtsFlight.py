@@ -15,7 +15,7 @@ import time
 
 
 
-def multiPointFlight(fname_pts:str, fname_start:str):
+def multiPointFlight(fname_pts:str, fname_start:str,commandFileName:str):
     start = time.time()
     intPts = readPoints(fname_pts)
     startPts = readPoints(fname_start)
@@ -41,7 +41,7 @@ def multiPointFlight(fname_pts:str, fname_start:str):
             if calc == sorted_distance[j]:
                 pt_order.append(i)
     print(pt_order)
-    grid = mapGrid()
+    grid = mapGrid(commandFileName)
     
     xint = []
     yint = []
@@ -87,7 +87,7 @@ def multiPointFlight(fname_pts:str, fname_start:str):
     respath = []
     respath.append(xpts_planPath)
     respath.append(ypts_planPath)
-    grid4demo = mapGrid4demo()
+    grid4demo = mapGrid4demo(commandFileName)
     outpathIMG(grid,respath, xPts, yPts, "planpath_5buff_100m_6pts_ori0627_2")
     outpathIMG(grid4demo,respath, xPts, yPts, "planpath_5buff_100m_6pts_0627_2")
     

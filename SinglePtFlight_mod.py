@@ -5,20 +5,20 @@ Created on Sun July 9 12:01:31 2021
 @author: ZXLi
 """
 
-from utils import readPoints, mapGrid, mapGrid4demo, outpathIMG, IsObstalce, readmap, writePath, checkPts
+from utils import readCmd, readPoints, mapGrid, mapGrid4demo, outpathIMG, IsObstalce, readmap, writeHeight, writePath, checkPts
 from astar_forUse import next_move
 from math  import sqrt, sin, cos
 import time
 
 
-
+# cmd file write format [IsRelativeHeight, FlightHeight, ]
 def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
     start_time = time.time()
     inPts = readPoints(fname_pts)
     startPts = readPoints(fname_start)
     radius = 20  # need to be an input from reading file 
-    grid = mapGrid()
-
+    grid = mapGrid(commandFileName)
+    cmdfile = readCmd(commandFileName)
     xin = []
     yin = []
 
@@ -60,7 +60,7 @@ def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
         if calc == sorted_distance[0]:
             start_index = i
     print(start_index)
-    grid = mapGrid()  # mapGrid will output the basic imforamtion of the map
+    grid = mapGrid(commandFileName)  # mapGrid will output the basic imforamtion of the map
     
     xin_sorted = []
     yin_sorted = []
@@ -126,40 +126,22 @@ def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
     print(respath)
     print("-------------------------------------------")
 
-    grid4demo = mapGrid4demo()
-    outpathIMG(grid,respath, xPts, yPts, "singlePts_5buff_75m_ang2_ori_harbor")
-    outpathIMG(grid4demo,respath, xPts, yPts, "singlePts_5buff_ang2_75m_harbor")
+    #grid4demo = mapGrid4demo(commandFileName)
+    #outpathIMG(grid,respath, xPts, yPts, "singlePts_5buff_75m_ang2_test")
+    #outpathIMG(grid4demo,respath, xPts, yPts, "singlePts_5buff_ang2_75m_test")
+    print("-------------------------------------------")
     writePath(xpts_planPath, ypts_planPath, "singlePts_5buff_75m_ang2.txt", 'noUseNow')
+    wpathtime = time.time()
+    print("complete writePath  time= " + str(wpathtime-end_time))
+    print("-------------------------------------------")
+    writeHeight(xpts_planPath, ypts_planPath, "singlePts_5buff_75m_ang2_H2.txt", commandFileName)
+    wHpathtime = time.time()
+    print("complete write Height Path  time= " + str(wHpathtime-end_time))
+    print("-------------------------------------------")
     warning_index = checkPts(xpts_planPath, ypts_planPath, 30)
     print("WARNING-----------------------"+str(warning_index)+"--------------------------------")
     # output a txt file record the basic imfomation: warning msg, 
     # image TWD97 location base point
 
-'''
-def checkPts(xpath:list, ypath:list, Flight_height) -> list:
-    # check whether each point is over the obstacle height setting 
-    # return the indexes list which are over the height
-    (mapinfo, map_arr) = readmap()
-
-    res = []
-    warning_xpts = []
-    warning_ypts = []
-    NoWarn = True
-    for i in range(len(xpath)):
-        if IsObstalce(map_arr[xpath[i]][ypath[i]], Flight_height, True):
-            warning_xpts.append(xpath[i])
-            warning_ypts.append(ypath[i])
-            NoWarn = False
-
-    if NoWarn: 
-        print("SAFE FLIGHT")
-        return 0
-    else:
-        res.append(warning_xpts)
-        res.append(warning_ypts)
-        print("WARNING!!!!! NEED TO INCREASE THE FLIGHT HEIGHT")
-
-    return res
-'''
 
 

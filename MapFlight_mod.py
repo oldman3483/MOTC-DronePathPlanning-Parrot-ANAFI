@@ -10,7 +10,7 @@ import numpy as np
 from math  import sqrt
 import time
 
-def mapSurveyFlight(fpts_map:str, fpts_start:str):
+def mapSurveyFlight(fpts_map:str, fpts_start:str, commandFileName:str):
     start_time = time.time()
     mapinfo = readCmd("../data/mapInfo.txt")
     startPts = readPoints(fpts_start)
@@ -70,7 +70,7 @@ def mapSurveyFlight(fpts_map:str, fpts_start:str):
             yin.append(y_coor)
         else: break
     print ("x coor : "+str(xin))
-    grid = mapGrid()
+    grid = mapGrid(commandFileName)
     # drawPtsOnGrid (grid, xin, yin, "planpath_mapsurvey_test")
     l_xstartPts = startPts[0].tolist()
     l_ystartPts = startPts[1].tolist()
@@ -135,7 +135,7 @@ def mapSurveyFlight(fpts_map:str, fpts_start:str):
     print("-------------------------------------------")
 
 
-    grid4demo = mapGrid4demo()
+    grid4demo = mapGrid4demo(commandFileName)
     outpathIMG(grid,respath, xPts, yPts, "Harbor_img_ori")
     outpathIMG(grid4demo,respath, xPts, yPts, "Harbor_img")
     writePath(xpts_planPath, ypts_planPath, "MapSurvey_5buff_75m.txt", 'noUseNow')

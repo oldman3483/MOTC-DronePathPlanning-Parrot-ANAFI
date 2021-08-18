@@ -102,9 +102,10 @@ xCorner = 0.0
 yCorner = 0.0
 
 
-def mapGrid() -> (object):
+def mapGrid(commandFileName:str) -> (object):
     (mapinfo, map_arr) = readmap()
-    H_flight = 30 #set default 30m 
+    cmdfile = readCmd(commandFileName)
+    H_flight = float(cmdfile[1]) #set default 30m 
     
     global xCorner, yCorner
 
@@ -131,9 +132,10 @@ def mapGrid() -> (object):
 
     return out_map
 
-def mapGrid4demo() -> (object):
+def mapGrid4demo(commandFileName:str) -> (object):
     (mapinfo, map_arr) = readmap()
-    H_flight = 30 #set default 30m 
+    cmdfile = readCmd(commandFileName)
+    H_flight = float(cmdfile[1]) #set default 30m 
 
 
     nrows = int(map_arr.shape[0])
@@ -166,9 +168,9 @@ def mapGrid4demo() -> (object):
 
 
 def IsObstalce(height:float, H_flight: float, default:bool) -> (bool):
-	if ((height+H_flight) > 35) and default:
-		return True
-	return False
+    if ((height+H_flight) > 35) and default:
+        return True
+    return False
 
 
     
@@ -279,3 +281,25 @@ def checkPts(xpath:list, ypath:list, Flight_height) -> list:
         print("WARNING!!!!! NEED TO INCREASE THE FLIGHT HEIGHT")
 
     return res
+
+def writeHeight(xpath:list, ypath:list, fname:str, cmdFileName:str):
+    cmdfile = readCmd(cmdFileName)
+    IsRelative = int(cmdfile[0])
+    print(IsRelative)
+    F_Height = float(cmdfile[1])
+    res = []
+
+    if IsRelative:
+        print("isRelative")
+        (mapinfo, map_arr) = readmap()
+        for i in range(len(xpath)):
+            height = map_arr[xpath[i]][ypath[i]]+F_Height
+            res.append(height)
+    else:
+        for i in range(len(xpath)):
+            res.append(F_Height)
+    
+    path_txt = open("../output/planningpath/"+fname, 'w')
+    path_txt.write(str(res))
+    path_txt.write('\n')
+    path_txt.close()
