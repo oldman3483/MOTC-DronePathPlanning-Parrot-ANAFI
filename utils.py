@@ -11,24 +11,24 @@ def writeMapInfo(arr_info, InfoTxtPath):
     f.close()
 
 
-
 def readMap_png(mapname, MapInfoFile):
     mapInfo = open(MapInfoFile, 'r', encoding="utf-8")
     map_arr = cv.imread(mapname)
 
 
-
 def readCmd(cmdFileName):
     cmd = open(cmdFileName, 'r')
     
-    for line in cmd.readlines():
+    for l in range(1):
+        line = cmd.readline()
         r_list = line.split(',')
         j = 0
         print("line== "+str(line))
-        print("r_list== "+str(r_list))
+        print("readCmd =>>>>>> r_list == "+str(r_list))
     
 
     # cmd file write format [IsRelativeHeight, FlightHeight, ]
+    cmd.close()
     return r_list
 
 
@@ -40,7 +40,7 @@ def readPoints(fname:str) -> (object):
         pts_num+=1
     fpts.close()
     
-    print(pts_num)
+    #print(pts_num)
     ptsx = []
     ptsy = []
     
@@ -61,8 +61,11 @@ def readPoints(fname:str) -> (object):
     ptsCor = np.array((ptsx, ptsy))
     return ptsCor    
 
+
 def readmap() -> object:
-    #filename = "../data/1m_harbor.txt"#xyz_1m.txt"
+    #filename = "../data/1m_harbor.txt"
+    fname = "../data/harbor_dsm.png"
+    #map_arr = cv.imread(fname, 0)
     filename = "../data/xyz_1m.txt"
     maptxt = open(filename, mode='r')
     ncols = int(splitNum(maptxt.readline()))
@@ -74,10 +77,10 @@ def readmap() -> object:
     
     mapINFO = np.array([nrows, ncols, xCorner, yCorner, noData])
     writeMapInfo(mapINFO, '../data/mapInfo.txt')
-    fname = "../data/harbor_dsm.png"
-    map_arr = cv.imread(fname, 0)
     
-    """
+    #return (mapINFO, map_arr)
+    
+    
     map_arr = np.zeros((nrows, ncols), dtype=np.float32)
     
     i = 0
@@ -92,12 +95,11 @@ def readmap() -> object:
         
         #print(map_arr[i][100:200])
         i+=1
-    """    
+        
+    
     return (mapINFO, map_arr)
 
-
 # declare global varible 
-
 xCorner = 0.0
 yCorner = 0.0
 
@@ -116,21 +118,17 @@ def mapGrid(commandFileName:str) -> (object):
     noData = mapinfo[-1]
 
     out_map = np.empty((int(nrows), int(ncols)), dtype=str)
-
-
-# use list is better choice or check the dtype of the np.string_
+    # use list is better choice or check the dtype of the np.string_
     for r in range(nrows):
         for c in range(ncols):
             #print("r== "+str(r)+"c== "+str(c))
-            if int(map_arr[r][c]) == 0:
-                out_map[r][c] = '.'
-                #continue
-            elif IsObstalce(map_arr[r][c], H_flight, True):
+            if IsObstalce(map_arr[r][c], H_flight, True):
                 setObstacle(out_map, r, c, 5)
             else:
                 out_map[r][c] = '.'
 
     return out_map
+
 
 def mapGrid4demo(commandFileName:str) -> (object):
     (mapinfo, map_arr) = readmap()
@@ -147,15 +145,11 @@ def mapGrid4demo(commandFileName:str) -> (object):
     out_map = np.empty((int(nrows), int(ncols)), dtype=str)
 
 
-# use list is better choice or check the dtype of the np.string_
+    # use list is better choice or check the dtype of the np.string_
     i = 0
     for r in range(nrows):
         for c in range(ncols):
-            if int(map_arr[r][c]) == noData:
-                out_map[r][c] = '.'
-                #continue
-                
-            elif IsObstalce(map_arr[r][c], H_flight, True):
+            if IsObstalce(map_arr[r][c], H_flight, True):
                 out_map[r][c] = '%'
                 i+=1
             else:
@@ -164,20 +158,17 @@ def mapGrid4demo(commandFileName:str) -> (object):
     return out_map
 
 
-
-
-
 def IsObstalce(height:float, H_flight: float, default:bool) -> (bool):
-    if ((height+H_flight) > 35) and default:
+    if ((height+H_flight) > 80) and default:
         return True
     return False
-
 
     
 def splitNum(str_num):
     data = str_num.split(' ')
     return data[-1]
-    
+
+
 def outpathIMG(grid: object, planPath:list, xpts:list, ypts:list, outfname:str):
     
     (r_, c_) = grid.shape
@@ -202,6 +193,7 @@ def outpathIMG(grid: object, planPath:list, xpts:list, ypts:list, outfname:str):
     
     cv.imwrite("../output/map/"+str(outfname)+".png", img_arr)
 
+
 def drawPtsOnGrid(grid:object, xpts:list, ypts:list, fname:str):
     (r_, c_) = grid.shape
     img_arr = np.zeros((r_, c_, 3), dtype=np.int16)
@@ -217,7 +209,6 @@ def drawPtsOnGrid(grid:object, xpts:list, ypts:list, fname:str):
         SetPixel3band(img_arr, xpts[pts], ypts[pts], 0, 0, 255)
     
     cv.imwrite("../output/map/"+str(fname)+".png", img_arr)
-
 
 
 def SetPixel3band(img_arr:object, r:int, c:int, B:int, G:int, R:int):
@@ -248,14 +239,20 @@ def setObstacle(img_arr:object, r:int, c:int, bufsize:int):
     except IndexError:
         print("error")
         pass
+
+
 def writePath(xpath:list, ypath:list, fname:str, input_name:str):
-# use the global varible xCorner and yCorner instead the read the input_name file
+    # use the global varible xCorner and yCorner instead the read the input_name file
 
 
     path_txt = open("../output/planningpath/"+fname, 'w')
-    path_txt.write(str(xpath[:]+xCorner))
-    path_txt.write('\n')
-    path_txt.write(str(ypath[:]+yCorner))
+    for i in range(len(xpath)):
+        path_txt.write(str(xpath[i]+xCorner))
+        path_txt.write(',')
+        path_txt.write(str(ypath[i]+yCorner))
+        path_txt.write('\n')
+
+
 
 def checkPts(xpath:list, ypath:list, Flight_height) -> list:
     # check whether each point is over the obstacle height setting 
@@ -282,6 +279,7 @@ def checkPts(xpath:list, ypath:list, Flight_height) -> list:
 
     return res
 
+
 def writeHeight(xpath:list, ypath:list, fname:str, cmdFileName:str):
     cmdfile = readCmd(cmdFileName)
     IsRelative = int(cmdfile[0])
@@ -294,12 +292,16 @@ def writeHeight(xpath:list, ypath:list, fname:str, cmdFileName:str):
         (mapinfo, map_arr) = readmap()
         for i in range(len(xpath)):
             height = map_arr[xpath[i]][ypath[i]]+F_Height
+            if height <0:
+                height = 0
             res.append(height)
     else:
         for i in range(len(xpath)):
             res.append(F_Height)
     
     path_txt = open("../output/planningpath/"+fname, 'w')
-    path_txt.write(str(res))
+    for i in range(len(res)):
+        path_txt.write(str(res[i]))
+        path_txt.write(",")
     path_txt.write('\n')
     path_txt.close()

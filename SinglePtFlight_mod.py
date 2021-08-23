@@ -17,8 +17,8 @@ def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
     inPts = readPoints(fname_pts)
     startPts = readPoints(fname_start)
     radius = 20  # need to be an input from reading file 
-    grid = mapGrid(commandFileName)
     cmdfile = readCmd(commandFileName)
+    
     xin = []
     yin = []
 
@@ -61,7 +61,6 @@ def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
             start_index = i
     print(start_index)
     grid = mapGrid(commandFileName)  # mapGrid will output the basic imforamtion of the map
-    
     xin_sorted = []
     yin_sorted = []
     
@@ -126,15 +125,17 @@ def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
     print(respath)
     print("-------------------------------------------")
 
-    #grid4demo = mapGrid4demo(commandFileName)
-    #outpathIMG(grid,respath, xPts, yPts, "singlePts_5buff_75m_ang2_test")
-    #outpathIMG(grid4demo,respath, xPts, yPts, "singlePts_5buff_ang2_75m_test")
+    pj_name = "SP_buf5_H80_NTU_t1"
+    
+    grid4demo = mapGrid4demo(commandFileName)
+    outpathIMG(grid,respath, xPts, yPts, pj_name+"_ori")
+    outpathIMG(grid4demo,respath, xPts, yPts, pj_name)
     print("-------------------------------------------")
-    writePath(xpts_planPath, ypts_planPath, "singlePts_5buff_75m_ang2.txt", 'noUseNow')
+    writePath(xpts_planPath, ypts_planPath, pj_name+"path.txt", 'noUseNow')
     wpathtime = time.time()
     print("complete writePath  time= " + str(wpathtime-end_time))
     print("-------------------------------------------")
-    writeHeight(xpts_planPath, ypts_planPath, "singlePts_5buff_75m_ang2_H2.txt", commandFileName)
+    writeHeight(xpts_planPath, ypts_planPath, pj_name+"_H2.txt", commandFileName)
     wHpathtime = time.time()
     print("complete write Height Path  time= " + str(wHpathtime-end_time))
     print("-------------------------------------------")
