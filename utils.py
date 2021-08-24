@@ -63,41 +63,57 @@ def readPoints(fname:str) -> (object):
 
 
 def readmap() -> object:
-    #filename = "../data/1m_harbor.txt"
-    fname = "../data/harbor_dsm.png"
-    #map_arr = cv.imread(fname, 0)
-    filename = "../data/xyz_1m.txt"
-    maptxt = open(filename, mode='r')
-    ncols = int(splitNum(maptxt.readline()))
-    nrows = int(splitNum(maptxt.readline()))
-    xCorner = float(splitNum(maptxt.readline()))
-    yCorner = float(splitNum(maptxt.readline()))
-    maptxt.readline() #cell size
-    noData = int(splitNum(maptxt.readline()))
-    
-    mapINFO = np.array([nrows, ncols, xCorner, yCorner, noData])
-    writeMapInfo(mapINFO, '../data/mapInfo.txt')
-    
-    #return (mapINFO, map_arr)
-    
-    
-    map_arr = np.zeros((nrows, ncols), dtype=np.float32)
-    
-    i = 0
-    
-    for line in maptxt.readlines():
-        row_list = np.asarray(line.split(sep=' '))
-        j = 0
-        for height in row_list:    
-            if(height != '\n'):
-                map_arr[i][j]= float(height)
-            j+=1
+
+    mode = 0
+
+    if mode == 0: #NTU map
+        filename = "../data/xyz_1m.txt"
+        maptxt = open(filename, mode='r')
+        ncols = int(splitNum(maptxt.readline()))
+        nrows = int(splitNum(maptxt.readline()))
+        xCorner = float(splitNum(maptxt.readline()))
+        yCorner = float(splitNum(maptxt.readline()))
+        maptxt.readline() #cell size
+        noData = int(splitNum(maptxt.readline()))
         
-        #print(map_arr[i][100:200])
-        i+=1
+        mapINFO = np.array([nrows, ncols, xCorner, yCorner, noData])
+        map_arr = np.zeros((nrows, ncols), dtype=np.float32)
+        writeMapInfo(mapINFO, '../data/mapInfo_NTU.txt')
+        i = 0
         
+        for line in maptxt.readlines():
+            row_list = np.asarray(line.split(sep=' '))
+            j = 0
+            for height in row_list:    
+                if(height != '\n'):
+                    map_arr[i][j]= float(height)
+                j+=1
+            
+            #print(map_arr[i][100:200])
+            i+=1        
+    else:  
+        fname = "../data/harbor_dsm.png"
+        map_arr = cv.imread(fname, 0)
+        fpts = open(fname, 'r')
+        for line in fpts.readlines():
+            r_list = line.split(',')
+            j = 0
+            #print("line"+str(line))
+            #print("r_list"+str(r_list))
+            nrows = r_list[0]
+            ncols = r_list[1]
+            xCorner = r_list[2]
+            yCorner = r_list[3]
+            noData = r_list[4]
+    
+        mapINFO = np.array([nrows, ncols, xCorner, yCorner, noData])
+        writeMapInfo(mapINFO, '../data/mapInfo_harbor.txt')
+    
     
     return (mapINFO, map_arr)
+    
+    
+    
 
 # declare global varible 
 xCorner = 0.0

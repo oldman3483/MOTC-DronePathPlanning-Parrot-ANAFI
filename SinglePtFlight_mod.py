@@ -14,7 +14,7 @@ import time
 # cmd file write format [IsRelativeHeight, FlightHeight, ]
 def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
     start_time = time.time()
-    inPts = readPoints(fname_pts)
+    inPintts = readPoints(fname_pts)
     startPts = readPoints(fname_start)
     radius = 20  # need to be an input from reading file 
     cmdfile = readCmd(commandFileName)
@@ -131,7 +131,7 @@ def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
     outpathIMG(grid,respath, xPts, yPts, pj_name+"_ori")
     outpathIMG(grid4demo,respath, xPts, yPts, pj_name)
     print("-------------------------------------------")
-    writePath(xpts_planPath, ypts_planPath, pj_name+"path.txt", 'noUseNow')
+    writePath(xpts_planPath, ypts_planPath, pj_name+"_path.txt", 'noUseNow')
     wpathtime = time.time()
     print("complete writePath  time= " + str(wpathtime-end_time))
     print("-------------------------------------------")
