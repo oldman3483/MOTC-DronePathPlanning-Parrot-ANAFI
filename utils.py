@@ -42,7 +42,7 @@ def readPoints(fname:str) -> (object):
     
     #print(pts_num)
     ptsx = []
-    ptsy = []
+    ptsy = [] 
     
     fpts = open(fname, 'r')
     row = 0
