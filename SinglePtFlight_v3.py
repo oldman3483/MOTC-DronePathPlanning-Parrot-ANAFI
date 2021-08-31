@@ -5,16 +5,16 @@ Created on Sun July 9 12:01:31 2021
 @author: ZXLi
 """
 
-from utils import readCmd, readPoints, mapGrid, mapGrid4demo, outpathIMG, IsObstalce, readmap, writeHeight, writePath, checkPts
+from utils_v2 import readCmd, readPoints, mapGrid, mapGrid4demo, outpathIMG, IsObstalce, readmap, writeHeight, writePath, checkPts
 from astar_forUse import next_move
 from math  import sqrt, sin, cos
 import time
 
 
 # cmd file write format [IsRelativeHeight, FlightHeight, ]
-def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative:int, speed:float, buffsize:int):
+def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative:int, speed:float, buffsize:int, H_flight:float):
     start_time = time.time()
-    inPintts = readPoints(fname_pts)
+    inPts = readPoints(fname_pts)
     startPts = readPoints(fname_start)
     radius = 20  # need to be an input from reading file 
     cmdfile = readCmd(commandFileName)
@@ -24,13 +24,13 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
 
 #    xin+=l_xstartPts
 #    yin+=l_ystartPts
-    # x coordinate
+#    x coordinate
 
     print("-------------------------------------------")
 
     for i in range(0, 360, 2):
-        xtmp = int(inPts[0]+cos(90-i)*radius)
-        ytmp = int(inPts[1]+sin(90-i)*radius)
+        xtmp = int(points_x+cos(90-i)*radius)
+        ytmp = int(points_y+sin(90-i)*radius)
 
         xin.append(xtmp)
         yin.append(ytmp)

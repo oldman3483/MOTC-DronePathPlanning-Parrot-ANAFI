@@ -31,7 +31,7 @@ def main():
     elif mode == 2:
         points_x = []
         points_y = []
-        singlePointFlight(start_point, points_x, points_y, IsRelative, speed, buffsize)
+        singlePointFlight(start_point, points_x, points_y, IsRelative, speed, buffsize, H_flight)
     elif mode == 3:
         fpts_map = '../data/mapFlightPts_test.txt'#mapFlightPts_default.txt'
         mapSurveyFlight(fpts_map, fname_start)

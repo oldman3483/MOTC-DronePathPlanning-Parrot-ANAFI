@@ -14,7 +14,7 @@ import time
 # cmd file write format [IsRelativeHeight, FlightHeight, ]
 def singlePointFlight(fname_pts:str, fname_start:str, commandFileName:str):
     start_time = time.time()
-    inPintts = readPoints(fname_pts)
+    inPts = readPoints(fname_pts)
     startPts = readPoints(fname_start)
     radius = 20  # need to be an input from reading file 
     cmdfile = readCmd(commandFileName)
