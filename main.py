@@ -5,7 +5,7 @@ Created on Sun July 9 11:48:45 2021
 @author: ZXLi
 """
 
-from MultiPtsFlight import multiPointFlight
+from MultiPtsFlight_v2 import multiPointFlight
 from SinglePtFlight_v3 import singlePointFlight
 from  MapFlight_v3 import  mapSurveyFlight
 
@@ -13,7 +13,7 @@ from  MapFlight_v3 import  mapSurveyFlight
 
 def main():
     Project_Name = ""
-    mode = 3
+    mode = 1
     start_point = [[194573.95845+10],[2677508.38611+10]] # input list of the start points coordinates
     fname_start = '../data/startCor.txt'
     
@@ -26,8 +26,11 @@ def main():
 
       
     if mode == 1:
-        fname_pts = '../data/multipoints_default_6pts.txt'   #multipoints_default_t2.txt'
-        multiPointFlight(fname_pts, fname_start)
+        #fname_pts = '../data/multipoints_default_6pts.txt'   #multipoints_default_t2.txt'
+        points_x = [194573.95845+86, 194573.95845+163, 194573.95845+202, 194573.95845+155, 194573.95845+77]
+        points_y = [2677508.386111+124, 2677508.386111+129, 2677508.386111+188, 2677508.386111+272, 2677508.386111+222]
+        pj_name = "buf5_H80_NTU_t1"
+        multiPointFlight(pj_name, start_point, points_x, points_y, IsRelative, speed, buffsize, H_flight)
     elif mode == 2:
         points_x = [194573.95845+600]
         points_y = [2677508.386111+800]
