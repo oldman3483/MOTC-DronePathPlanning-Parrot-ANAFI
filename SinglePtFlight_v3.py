@@ -30,11 +30,11 @@ def singlePointFlight(pj_name:str, start_Point:list, points_x:list, points_y:lis
 #    x coordinate
     if startPts[0][0]-xCorner<0 or startPts[1][0]-yCorner<0:
         msg1 = "Reference points coordinates are wrong, check the start points"
-        WarningMsg.append()
+        WarningMsg.append(msg1)
     
     if points_x[0]-xCorner<0 or points_y[0]-yCorner<0:
         msg1 = "Reference points coordinates are wrong, check the input points"
-        WarningMsg.append()
+        WarningMsg.append(msg1)
         
     print("-------------------------------------------")
 
@@ -136,10 +136,10 @@ def singlePointFlight(pj_name:str, start_Point:list, points_x:list, points_y:lis
 
     
     grid4demo = mapGrid4demo(H_flight)
-    outpathIMG(grid,respath, xPts, yPts, pj_name+"_ori")
-    outpathIMG(grid4demo,respath, xPts, yPts, pj_name)
+    outpathIMG(grid,respath, xPts, yPts, "SP_"+pj_name+"_ori")
+    outpathIMG(grid4demo,respath, xPts, yPts, "SP_"+pj_name)
     print("-------------------------------------------")
-    writePath(xpts_planPath, ypts_planPath, pj_name+"_path.txt", 'noUseNow')
+    writePath(xpts_planPath, ypts_planPath, "SP_"+pj_name+"_path.txt", 'noUseNow')
     wpathtime = time.time()
     print("complete writePath  time= " + str(wpathtime-end_time))
     print("-------------------------------------------")
@@ -152,6 +152,10 @@ def singlePointFlight(pj_name:str, start_Point:list, points_x:list, points_y:lis
     print(WarningMsg[-1])
     # output a txt file record the basic imfomation: warning msg, 
     # image TWD97 location base point
+
+    distance = 0
+    photo_num = distance/speed
+    return [xpts_planPath, ypts_planPath, Hpts_planPath, WarningMsg, speed, photo_num, distance]
 
 
 
