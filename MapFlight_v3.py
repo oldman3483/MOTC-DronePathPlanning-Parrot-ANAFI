@@ -158,7 +158,7 @@ def mapSurveyFlight(pj_name:str, start_Point:list, points_x:list, points_y:list,
     WarningMsg.append("WARNING-----------------------"+str(warning_index)+" will be collided! --------------------------------")
     print(WarningMsg[-1])
 
-    distance = 0
+    distance = ((len(xpts_planPath)-pathNum-pathNum_back)*xstep+ystep*6)+pathNum+pathNum_back
     photo_num = distance/speed
 
     

@@ -164,7 +164,6 @@ def mapGrid4demo(H_flight:float) -> (object):
                 i+=1
             else:
                 out_map[r][c] = '.'
-    print(str(i)+" OBS NUM")
     return out_map
 
 

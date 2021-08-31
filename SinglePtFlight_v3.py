@@ -7,20 +7,20 @@ Created on Sun July 9 12:01:31 2021
 
 from utils_v2 import readMapInfo, mapGrid, mapGrid4demo, outpathIMG, IsObstalce, readmap, writeHeight, writePath, checkPts
 from astar_forUse import next_move
-from math  import sqrt, sin, cos
+from math  import sqrt, sin, cos, pi
 import time
 
 
 # cmd file write format [IsRelativeHeight, FlightHeight, ]
-def singlePointFlight(pj_name:str, start_Point:list, points_x:list, points_y:list, IsRelative:int, speed:float, buffsize:int, H_flight:float):
+def singlePointFlight(pj_name:str, start_Point:list, points_x:list, points_y:list, IsRelative:int, speed:float, buffsize:int, H_flight:float ,radius):
     start_time = time.time()
     WarningMsg = []
+    gridsize = 1
     mapInfo = readMapInfo("../data/mapInfo.txt")
     xCorner = float(mapInfo[2])
     yCorner = float(mapInfo[3])
 
     startPts = start_Point
-    radius = 20  # need to be an input from reading file 
     
     xin = []
     yin = []
@@ -153,7 +153,7 @@ def singlePointFlight(pj_name:str, start_Point:list, points_x:list, points_y:lis
     # output a txt file record the basic imfomation: warning msg, 
     # image TWD97 location base point
 
-    distance = 0
+    distance = pathNum*2*gridsize+radius*pi*2
     photo_num = distance/speed
     return [xpts_planPath, ypts_planPath, Hpts_planPath, WarningMsg, speed, photo_num, distance]
 
