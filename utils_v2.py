@@ -143,11 +143,8 @@ def mapGrid(H_flight:float) -> (object):
     return out_map
 
 
-def mapGrid4demo(commandFileName:str) -> (object):
+def mapGrid4demo(H_flight:float) -> (object):
     (mapinfo, map_arr) = readmap()
-    cmdfile = readCmd(commandFileName)
-    H_flight = float(cmdfile[1]) #set default 30m 
-
 
     nrows = int(map_arr.shape[0])
     ncols = int(map_arr.shape[1])
@@ -293,11 +290,9 @@ def checkPts(xpath:list, ypath:list, Flight_height) -> list:
     return res
 
 
-def writeHeight(xpath:list, ypath:list, fname:str, cmdFileName:str):
-    cmdfile = readCmd(cmdFileName)
-    IsRelative = int(cmdfile[0])
+def writeHeight(xpath:list, ypath:list, fname:str, IsRelative:int, H_flight:float):
     print(IsRelative)
-    F_Height = float(cmdfile[1])
+    F_Height = H_flight
     res = []
 
     if IsRelative:
@@ -318,3 +313,4 @@ def writeHeight(xpath:list, ypath:list, fname:str, cmdFileName:str):
         path_txt.write(",")
     path_txt.write('\n')
     path_txt.close()
+    return res

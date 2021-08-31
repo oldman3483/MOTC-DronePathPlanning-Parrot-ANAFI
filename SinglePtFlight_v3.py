@@ -14,10 +14,8 @@ import time
 # cmd file write format [IsRelativeHeight, FlightHeight, ]
 def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative:int, speed:float, buffsize:int, H_flight:float):
     start_time = time.time()
-    inPts = readPoints(fname_pts)
-    startPts = readPoints(fname_start)
+    startPts = start_Point
     radius = 20  # need to be an input from reading file 
-    cmdfile = readCmd(commandFileName)
     
     xin = []
     yin = []
@@ -60,7 +58,7 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
         if calc == sorted_distance[0]:
             start_index = i
     print(start_index)
-    grid = mapGrid(commandFileName)  # mapGrid will output the basic imforamtion of the map
+    grid = mapGrid(H_flight)  # mapGrid will output the basic imforamtion of the map
     xin_sorted = []
     yin_sorted = []
     
@@ -72,8 +70,8 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
         yin_sorted.append(yin[index])
 
         index+=1
-    l_xstartPts = startPts[0].tolist()
-    l_ystartPts = startPts[1].tolist()
+    l_xstartPts = startPts[0]#.tolist()
+    l_ystartPts = startPts[1]#.tolist()
     xin_sorted.append(xin[start_index])
     yin_sorted.append(yin[start_index])
 
@@ -110,7 +108,6 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
     ypts_planPath_back = list(reversed(ypts_planPath))
     xpts_planPath += xin + xpts_planPath_back
     ypts_planPath += yin +ypts_planPath_back
-    #print(pts_pathNum)
     print("-------------------------------------------")
     print(xpts_planPath)
     print("-------------------------------------------")
@@ -127,7 +124,7 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
 
     pj_name = "SP_buf5_H80_NTU_t1"
     
-    grid4demo = mapGrid4demo(commandFileName)
+    grid4demo = mapGrid4demo(H_flight)
     outpathIMG(grid,respath, xPts, yPts, pj_name+"_ori")
     outpathIMG(grid4demo,respath, xPts, yPts, pj_name)
     print("-------------------------------------------")
@@ -135,12 +132,13 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
     wpathtime = time.time()
     print("complete writePath  time= " + str(wpathtime-end_time))
     print("-------------------------------------------")
-    writeHeight(xpts_planPath, ypts_planPath, pj_name+"_H2.txt", commandFileName)
+    Hpts_planPath = writeHeight(xpts_planPath, ypts_planPath, pj_name+"_H2.txt",IsRelative ,H_flight)
     wHpathtime = time.time()
     print("complete write Height Path  time= " + str(wHpathtime-end_time))
     print("-------------------------------------------")
     warning_index = checkPts(xpts_planPath, ypts_planPath, 30)
-    print("WARNING-----------------------"+str(warning_index)+"--------------------------------")
+    WarningMsg = "WARNING-----------------------"+str(warning_index)+" will be collided! --------------------------------"
+    print(WarningMsg)
     # output a txt file record the basic imfomation: warning msg, 
     # image TWD97 location base point
 

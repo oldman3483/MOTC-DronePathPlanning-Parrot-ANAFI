@@ -14,7 +14,7 @@ from  MapFlight_mod import  mapSurveyFlight
 def main():
     Project_Name = ""
     mode = 0
-    start_point = [] # input list of the start points coordinates
+    start_point = [[],[]] # input list of the start points coordinates
     fname_start = '../data/startCor.txt'
     
 
