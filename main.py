@@ -35,7 +35,8 @@ def main():
         points_x = [194573.95845+600]
         points_y = [2677508.386111+800]
         pj_name = "buf5_H80_NTU_t3"
-        singlePointFlight(pj_name, start_point, points_x, points_y, IsRelative, speed, buffsize, H_flight)
+        radius = 20
+        singlePointFlight(pj_name, start_point, points_x, points_y, IsRelative, speed, buffsize, H_flight, radius)
     elif mode == 3:
         #fpts_map = '../data/mapFlightPts_test.txt'#mapFlightPts_default.txt'
 
