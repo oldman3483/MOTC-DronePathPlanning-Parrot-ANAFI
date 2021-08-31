@@ -13,8 +13,8 @@ from  MapFlight_mod import  mapSurveyFlight
 
 def main():
     Project_Name = ""
-    mode = 0
-    start_point = [[],[]] # input list of the start points coordinates
+    mode = 2
+    start_point = [[194573.95845+10],[2677508.38611+10]] # input list of the start points coordinates
     fname_start = '../data/startCor.txt'
     
 
@@ -29,9 +29,10 @@ def main():
         fname_pts = '../data/multipoints_default_6pts.txt'   #multipoints_default_t2.txt'
         multiPointFlight(fname_pts, fname_start)
     elif mode == 2:
-        points_x = []
-        points_y = []
-        singlePointFlight(start_point, points_x, points_y, IsRelative, speed, buffsize, H_flight)
+        points_x = [194573.95845+600]
+        points_y = [2677508.386111+800]
+        pj_name = "SP_buf5_H80_NTU_t3"
+        singlePointFlight(pj_name, start_point, points_x, points_y, IsRelative, speed, buffsize, H_flight)
     elif mode == 3:
         fpts_map = '../data/mapFlightPts_test.txt'#mapFlightPts_default.txt'
         mapSurveyFlight(fpts_map, fname_start)

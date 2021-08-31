@@ -5,15 +5,20 @@ Created on Sun July 9 12:01:31 2021
 @author: ZXLi
 """
 
-from utils_v2 import readCmd, readPoints, mapGrid, mapGrid4demo, outpathIMG, IsObstalce, readmap, writeHeight, writePath, checkPts
+from utils_v2 import readMapInfo, mapGrid, mapGrid4demo, outpathIMG, IsObstalce, readmap, writeHeight, writePath, checkPts
 from astar_forUse import next_move
 from math  import sqrt, sin, cos
 import time
 
 
 # cmd file write format [IsRelativeHeight, FlightHeight, ]
-def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative:int, speed:float, buffsize:int, H_flight:float):
+def singlePointFlight(pj_name:str, start_Point:list, points_x:list, points_y:list, IsRelative:int, speed:float, buffsize:int, H_flight:float):
     start_time = time.time()
+    WarningMsg = []
+    mapInfo = readMapInfo("../data/mapInfo.txt")
+    xCorner = float(mapInfo[2])
+    yCorner = float(mapInfo[3])
+
     startPts = start_Point
     radius = 20  # need to be an input from reading file 
     
@@ -23,12 +28,19 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
 #    xin+=l_xstartPts
 #    yin+=l_ystartPts
 #    x coordinate
-
+    if startPts[0][0]-xCorner<0 or startPts[1][0]-yCorner<0:
+        msg1 = "Reference points coordinates are wrong, check the start points"
+        WarningMsg.append()
+    
+    if points_x[0]-xCorner<0 or points_y[0]-yCorner<0:
+        msg1 = "Reference points coordinates are wrong, check the input points"
+        WarningMsg.append()
+        
     print("-------------------------------------------")
 
     for i in range(0, 360, 2):
-        xtmp = int(points_x+cos(90-i)*radius)
-        ytmp = int(points_y+sin(90-i)*radius)
+        xtmp = int(points_x[0]-xCorner+cos(90-i)*radius)
+        ytmp = int(points_y[0]-yCorner+sin(90-i)*radius)
 
         xin.append(xtmp)
         yin.append(ytmp)
@@ -70,8 +82,8 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
         yin_sorted.append(yin[index])
 
         index+=1
-    l_xstartPts = startPts[0]#.tolist()
-    l_ystartPts = startPts[1]#.tolist()
+    l_xstartPts = [int(startPts[0][0] - xCorner)]
+    l_ystartPts = [int(startPts[1][0] - yCorner)]
     xin_sorted.append(xin[start_index])
     yin_sorted.append(yin[start_index])
 
@@ -122,7 +134,6 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
     print(respath)
     print("-------------------------------------------")
 
-    pj_name = "SP_buf5_H80_NTU_t1"
     
     grid4demo = mapGrid4demo(H_flight)
     outpathIMG(grid,respath, xPts, yPts, pj_name+"_ori")
@@ -137,8 +148,8 @@ def singlePointFlight(start_Point:list, points_x:list, points_y:list, IsRelative
     print("complete write Height Path  time= " + str(wHpathtime-end_time))
     print("-------------------------------------------")
     warning_index = checkPts(xpts_planPath, ypts_planPath, 30)
-    WarningMsg = "WARNING-----------------------"+str(warning_index)+" will be collided! --------------------------------"
-    print(WarningMsg)
+    WarningMsg.append("WARNING-----------------------"+str(warning_index)+" will be collided! --------------------------------")
+    print(WarningMsg[-1])
     # output a txt file record the basic imfomation: warning msg, 
     # image TWD97 location base point
 

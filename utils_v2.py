@@ -16,8 +16,8 @@ def readMap_png(mapname, MapInfoFile):
     map_arr = cv.imread(mapname)
 
 
-def readCmd(cmdFileName):
-    cmd = open(cmdFileName, 'r')
+def readMapInfo(InfoName:str):
+    cmd = open(InfoName, 'r')
     
     for l in range(1):
         line = cmd.readline()
